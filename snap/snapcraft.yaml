@@ -1,0 +1,101 @@
+name: video-trimmer # you probably want to 'snapcraft register <name>'
+base: core22 # the base snap is the execution environment for this snap
+adopt-info: video-trimmer
+grade: stable # must be 'stable' to release into candidate/stable channels
+confinement: strict # use 'strict' once you have the right plugs and slots
+
+parts:
+  ffmpeg:
+    # WORKAROUND:
+    # Build from source because the ffmpeg package installs libraries as dependencies
+    # that conflict with the Gnome extension
+    plugin: autotools
+    source: https://ffmpeg.org/releases/ffmpeg-6.0.tar.xz
+    source-checksum: sha256/57be87c22d9b49c112b6d24bc67d42508660e6b718b3db89c44e47e289137082
+    autotools-configure-parameters:
+      # WORKAROUND: Install to /usr instead of /usr/local because it's not in search paths
+      - --prefix=/usr
+      - --disable-debug
+      - --disable-doc
+      - --disable-static
+      - --enable-gpl
+      - --enable-shared
+      - --disable-ffplay
+      - --disable-devices
+      - --enable-gnutls
+      - --enable-libmp3lame
+      - --enable-libvorbis
+    build-packages:
+      - nasm
+      - libgnutls28-dev
+      - libmp3lame-dev
+      - libvorbis-dev
+    stage-packages:
+      - libmp3lame0
+    stage:
+      - -usr/include
+      - -usr/share
+  rustup:
+    plugin: nil
+    build-packages: [wget]
+    build-environment:
+      - RUSTUP_HOME: $CRAFT_PART_INSTALL/usr/share/rust
+      - CARGO_HOME: $CRAFT_PART_INSTALL/usr/share/rust
+      - CARGO_BUILD_JOBS: $CRAFT_PARALLEL_BUILD_COUNT
+    override-pull: |
+      wget https://sh.rustup.rs -O $CRAFT_PART_SRC/rustup-init.sh
+      chmod +x $CRAFT_PART_SRC/rustup-init.sh
+    override-build: |
+      $CRAFT_PART_SRC/rustup-init.sh -y --no-modify-path
+      mkdir -p $CRAFT_PART_INSTALL/usr/bin
+      for i in `ls $RUSTUP_HOME/bin/`; do
+        ln -s ../share/rust/bin/$i $CRAFT_PART_INSTALL/usr/bin/$i
+      done
+    override-prime: |
+      echo 'Skip Prime'  
+  video-trimmer:
+    after: [rustup]
+    # See 'snapcraft plugins'
+    plugin: meson
+    source: https://gitlab.gnome.org/YaLTeR/video-trimmer.git
+    source-tag: v0.8.1
+    build-environment:
+      - RUSTUP_HOME: $CRAFT_STAGE/usr/share/rust
+      - CARGO_HOME: $CRAFT_STAGE/usr/share/rust
+      - CARGO_BUILD_JOBS: $CRAFT_PARALLEL_BUILD_COUNT
+      - GI_TYPELIB_PATH: /snap/gnome-42-2204-sdk/current/usr/lib/girepository-1.0:/snap/gnome-42-2204-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET/girepository-1.0
+      - LDFLAGS: /snap/gnome-42-2204-sdk/current/usr/lib/$SNAPCRAFT_ARCH_TRIPLET:/snap/gnome-42-2204-sdk/current/usr/lib/girepository-1.0:$LDFLAGS
+      - LD_LIBRARY_PATH: /snap/gnome-42-2204-sdk/current/usr/lib/$SNAPCRAFT_ARCH_TRIPLET:/snap/gnome-42-2204-sdk/current/usr/lib/girepository-1.0:$LD_LIBRARY_PATH
+    meson-parameters:
+      - --prefix=/snap/video-trimmer/current/usr
+    build-packages:
+      - libgstreamer-plugins-good1.0-dev
+      - gobject-introspection
+      - libgirepository1.0-dev
+    stage-packages:
+      - gstreamer1.0-plugins-good
+      - gstreamer1.0-plugins-bad
+    organize: 
+      snap/video-trimmer/current: .
+    parse-info: [ usr/share/metainfo/org.gnome.gitlab.YaLTeR.VideoTrimmer.metainfo.xml ]
+    prime:
+      - -usr/lib/*/libharf*
+      - -usr/lib/*/libicu*
+      - -usr/lib/*/libcairo*
+      - -usr/lib/*/libgdk*
+      - -usr/lib/*/gdk*
+      - -usr/lib/*/libdw*
+slots:
+  video-trimmer:
+    interface: dbus
+    bus: session
+    name: org.gnome.gitlab.YaLTeR.VideoTrimmer 
+apps:
+  video-trimmer:
+    command: usr/bin/video-trimmer
+    desktop: usr/share/applications/org.gnome.gitlab.YaLTeR.VideoTrimmer.desktop
+    extensions: [ gnome ]
+    common-id: org.gnome.gitlab.YaLTeR.VideoTrimmer
+    plugs:
+      - home
+      - removable-media
