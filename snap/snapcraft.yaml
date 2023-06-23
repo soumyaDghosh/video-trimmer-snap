@@ -52,9 +52,9 @@ parts:
         ln -s ../share/rust/bin/$i $CRAFT_PART_INSTALL/usr/bin/$i
       done
     override-prime: |
-      echo 'Skip Prime'  
+      echo 'Skip Prime'
   video-trimmer:
-    after: [rustup]
+    after: [ rustup, ffmpeg ]
     # See 'snapcraft plugins'
     plugin: meson
     source: https://gitlab.gnome.org/YaLTeR/video-trimmer.git
@@ -72,30 +72,29 @@ parts:
       - libgstreamer-plugins-good1.0-dev
       - gobject-introspection
       - libgirepository1.0-dev
-    stage-packages:
-      - gstreamer1.0-plugins-good
-      - gstreamer1.0-plugins-bad
-    organize: 
+    organize:
       snap/video-trimmer/current: .
     parse-info: [ usr/share/metainfo/org.gnome.gitlab.YaLTeR.VideoTrimmer.metainfo.xml ]
+  deps:
+    after: [ video-trimmer ]
+    plugin: nil
+    stage-packages:
+      - libgtk-4-media-gstreamer
     prime:
-      - -usr/lib/*/libharf*
-      - -usr/lib/*/libicu*
-      - -usr/lib/*/libcairo*
-      - -usr/lib/*/libgdk*
-      - -usr/lib/*/gdk*
-      - -usr/lib/*/libdw*
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gtk-4.0/4.0.0/media/libmedia-gstreamer.so
 slots:
   video-trimmer:
     interface: dbus
     bus: session
-    name: org.gnome.gitlab.YaLTeR.VideoTrimmer 
+    name: org.gnome.gitlab.YaLTeR.VideoTrimmer
 apps:
   video-trimmer:
     command: usr/bin/video-trimmer
     desktop: usr/share/applications/org.gnome.gitlab.YaLTeR.VideoTrimmer.desktop
     extensions: [ gnome ]
     common-id: org.gnome.gitlab.YaLTeR.VideoTrimmer
+    environment:
+      LD_LIBRARY_PATH: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET:$SNAP/usr/lib:/snap/gnome-platform/usr/lib:$SNAP/gnome-platform/usr/lib/$CRAFT_ARCH_TRIPLET:$LD_LIBRARY_PATH
     plugs:
       - home
       - removable-media
