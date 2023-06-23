@@ -95,7 +95,7 @@ apps:
     common-id: org.gnome.gitlab.YaLTeR.VideoTrimmer
     environment:
       LD_LIBRARY_PATH: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET:$SNAP/usr/lib:/snap/gnome-platform/usr/lib:$SNAP/gnome-platform/usr/lib/$CRAFT_ARCH_TRIPLET:$LD_LIBRARY_PATH
-      GTK_PATH: $SNAP/gnome-platform/usr/lib/x86_64-linux-gnu/gtk-4.0:$GTK_PATH
+      GTK_PATH: $SNAP/gnome-platform/usr/lib/$CRAFT_ARCH_TRIPLET/gtk-4.0:$GTK_PATH
     plugs:
       - home
       - removable-media
