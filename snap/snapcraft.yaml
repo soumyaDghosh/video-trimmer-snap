@@ -75,6 +75,15 @@ parts:
     organize:
       snap/video-trimmer/current: .
     parse-info: [ usr/share/metainfo/org.gnome.gitlab.YaLTeR.VideoTrimmer.metainfo.xml ]
+    prime:
+      - -snap/video-trimmer
+  deps:
+    after: [ video-trimmer ]
+    plugin: nil
+    stage-packages:
+      - gstreamer1.0-libav
+    prime:
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstlibav.so
 
 slots:
   video-trimmer:
@@ -90,7 +99,6 @@ apps:
     environment:
       LD_LIBRARY_PATH: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET:$SNAP/usr/lib:/snap/gnome-platform/usr/lib:$SNAP/gnome-platform/usr/lib/$CRAFT_ARCH_TRIPLET:$LD_LIBRARY_PATH
       GTK_PATH: $SNAP/gnome-platform/usr/lib/$CRAFT_ARCH_TRIPLET/gtk-4.0:$GTK_PATH
-      GST_PLUGIN_PATH: $SNAP/gnome-platform/usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0:$SNAP/gnome-platform/usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer1.0:$SNAP/gnome-platform/usr/lib/$CRAFT_ARCH_TRIPLET
     plugs:
       - home
       - removable-media
