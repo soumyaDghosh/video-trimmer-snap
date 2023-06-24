@@ -70,8 +70,6 @@ parts:
       - --prefix=/snap/video-trimmer/current/usr
     build-packages:
       - libgstreamer-plugins-good1.0-dev
-      - gobject-introspection
-      - libgirepository1.0-dev
     organize:
       snap/video-trimmer/current: .
     parse-info: [ usr/share/metainfo/org.gnome.gitlab.YaLTeR.VideoTrimmer.metainfo.xml ]
@@ -81,9 +79,80 @@ parts:
     after: [ video-trimmer ]
     plugin: nil
     stage-packages:
-      - gstreamer1.0-libav
+      - gstreamer1.0-plugins-good
     prime:
-      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstlibav.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgst1394.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstaasink.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstalaw.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstalpha.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstalphacolor.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstapetag.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstaudiofx.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstaudioparsers.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstauparse.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstautodetect.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstavi.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstcacasink.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstcairo.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstcamerabin.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstcutter.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstdebug.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstdeinterlace.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstdtmf.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstdv.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgsteffectv.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstequalizer.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstflac.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstflv.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstflxdec.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstgdkpixbuf.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstgoom.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstgoom2k1.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgsticydemux.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstid3demux.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstimagefreeze.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstinterleave.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstisomp4.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstjack.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstjpeg.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstjpegformat.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstlame.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstlevel.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstmatroska.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstmonoscope.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstmpg123.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstmulaw.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstmultifile.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstmultipart.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstnavigationtest.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstoss4.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstossaudio.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstpng.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstpulseaudio.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstreplaygain.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstrtp.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstrtpmanager.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstrtsp.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstshapewipe.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstshout2.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstsmpte.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstsoup.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstspectrum.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstspeex.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgsttaglib.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgsttwolame.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstudp.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstvideo4linux2.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstvideobox.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstvideocrop.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstvideofilter.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstvideomixer.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstvpx.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstwavenc.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstwavpack.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstwavparse.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgstximagesrc.so
+      - usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0/libgsty4menc.so
 
 slots:
   video-trimmer:
