@@ -15,6 +15,9 @@ parts:
     plugin: autotools
     source: https://git.ffmpeg.org/ffmpeg.git
     source-branch: 'n4.4'
+# ext:updatesnap
+#   version-format:
+#     ignore: true
     autotools-configure-parameters:
       # WORKAROUND: Install to /usr instead of /usr/local because it's not in search paths
       - --prefix=/usr
@@ -63,6 +66,7 @@ parts:
     plugin: meson
     source: https://gitlab.gnome.org/YaLTeR/video-trimmer.git
     source-tag: v0.8.1
+    source-depth: 1
     build-environment:
       - RUSTUP_HOME: $CRAFT_STAGE/usr/share/rust
       - CARGO_HOME: $CRAFT_STAGE/usr/share/rust
