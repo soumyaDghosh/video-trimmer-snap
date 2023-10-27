@@ -83,6 +83,12 @@ parts:
     parse-info: [ usr/share/metainfo/org.gnome.gitlab.YaLTeR.VideoTrimmer.metainfo.xml ]
     prime:
       - -snap/video-trimmer
+  deps:
+    plugin: nil
+    stage-packages:
+      - gstreamer1.0-vaapi
+      - gstreamer1.0-plugins-ugly
+      - gstreamer1.0-gl
 
 slots:
   video-trimmer:
@@ -94,10 +100,7 @@ apps:
     command: usr/bin/video-trimmer
     desktop: usr/share/applications/org.gnome.gitlab.YaLTeR.VideoTrimmer.desktop
     extensions: [ gnome ]
-    common-id: org.gnome.gitlab.YaLTeR.VideoTrimmer
-    environment:
-      LD_LIBRARY_PATH: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET:$SNAP/usr/lib:/snap/gnome-platform/usr/lib:$SNAP/gnome-platform/usr/lib/$CRAFT_ARCH_TRIPLET:$LD_LIBRARY_PATH
-      GTK_PATH: $SNAP/gnome-platform/usr/lib/$CRAFT_ARCH_TRIPLET/gtk-4.0:$GTK_PATH
+    common-id: org.gnome.gitlab.YaLTeR.VideoTrimmer 
     plugs:
       - home
       - removable-media
