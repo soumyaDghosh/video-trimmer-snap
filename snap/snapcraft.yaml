@@ -38,7 +38,7 @@ parts:
       - CARGO_HOME: $CRAFT_STAGE/usr/share/rust
       - CARGO_BUILD_JOBS: $CRAFT_PARALLEL_BUILD_COUNT
       - GI_TYPELIB_PATH: /snap/gnome-42-2204-sdk/current/usr/lib/girepository-1.0:/snap/gnome-42-2204-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET/girepository-1.0
-      - LDFLAGS: /snap/gnome-42-2204-sdk/current/usr/lib/$SNAPCRAFT_ARCH_TRIPLET:/snap/gnome-42-2204-sdk/current/usr/lib/girepository-1.0:/snap/ffmpeg-2204-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET:$LDFLAGS
+      - LDFLAGS: /snap/gnome-42-2204-sdk/current/usr/lib/$SNAPCRAFT_ARCH_TRIPLET:/snap/gnome-42-2204-sdk/current/usr/lib/girepository-1.0:/snap/ffmpeg-2204-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET
       - LD_LIBRARY_PATH: /snap/gnome-42-2204-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET:/snap/gnome-42-2204-sdk/current/usr/lib:/snap/ffmpeg-2204-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET:$LD_LIBRARY_PATH
     meson-parameters:
       - --prefix=/snap/video-trimmer/current/usr
