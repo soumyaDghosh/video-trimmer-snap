@@ -52,11 +52,18 @@ parts:
     prime:
       - -snap/video-trimmer
   deps:
+    after: [ video-trimmer ]
     plugin: nil
     stage-packages:
       - gstreamer1.0-vaapi
       - gstreamer1.0-plugins-ugly
-      - gstreamer1.0-gl
+      - gstreamer1.0-plugins-bad
+    override-prime: |
+      craftctl default
+      set -eux
+      for snap in "core22" "gnome-42-2204" "ffmpeg-2204"; do  # List all content-snaps and base snaps you're using here
+          cd "/snap/$snap/current" && find . -type f,l -exec rm -f "$CRAFT_PRIME/{}" \;
+      done
 
 
 plugs:
