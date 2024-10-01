@@ -31,7 +31,7 @@ parts:
     after: [ rustup ]
     plugin: meson
     source: https://gitlab.gnome.org/YaLTeR/video-trimmer.git
-    source-tag: 'v0.8.2'
+    source-tag: 'v0.9.0'
     source-depth: 1
     build-environment:
       - PATH: /snap/ffmpeg-2204-sdk/current/usr/bin:$PATH
